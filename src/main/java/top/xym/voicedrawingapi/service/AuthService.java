@@ -14,4 +14,9 @@ public interface AuthService extends IService<User> {
      * @return {@link UserLoginVO}
      */
     UserLoginVO loginByPhone(String phone, String code);
+
+    /**
+     * 登出
+     */
+    void logout();
 }

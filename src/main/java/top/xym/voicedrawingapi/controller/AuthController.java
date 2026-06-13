@@ -23,4 +23,11 @@ public class AuthController {
                                                     phone, @RequestParam("code") String code) {
         return Result.ok(authService.loginByPhone(phone, code));
     }
+
+    @PostMapping("/logout")
+    @Operation(summary = "登出")
+    public Result<Object> logout() {
+        authService.logout();
+        return Result.ok();
+    }
 }

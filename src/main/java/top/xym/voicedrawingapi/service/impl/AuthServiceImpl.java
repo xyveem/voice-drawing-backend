@@ -7,6 +7,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import top.xym.voicedrawingapi.common.cache.RedisCache;
 import top.xym.voicedrawingapi.common.cache.RedisKeys;
+import top.xym.voicedrawingapi.common.cache.RequestContext;
 import top.xym.voicedrawingapi.common.cache.TokenStoreCache;
 import top.xym.voicedrawingapi.common.exception.ErrorCode;
 import top.xym.voicedrawingapi.common.exception.ServerException;
@@ -57,5 +58,17 @@ public class AuthServiceImpl extends ServiceImpl<UserMapper, User> implements Au
         userLoginVO.setAccessToken(accessToken);
         tokenStoreCache.saveUser(accessToken, userLoginVO);
         return userLoginVO;
+    }
+
+    @Override
+    public void logout() {
+        // 从上下⽂中获取userId，然后获取redisKey
+        String cacheKey = RedisKeys.getUserIdKey(RequestContext.getUserId());
+        // 通过userId，获取redis中的 accessToken
+        String accessToken = (String) redisCache.get(cacheKey);
+        // 删除缓存中的 token
+        redisCache.delete(cacheKey);
+        // 删除缓存中的⽤户信息
+        tokenStoreCache.deleteUser(accessToken);
     }
 }
