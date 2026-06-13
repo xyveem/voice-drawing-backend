@@ -1,7 +1,6 @@
 server:
   port: 8080
   servlet:
-    # ???????
     context-path: /draw-api
 
 spring:
@@ -13,9 +12,7 @@ spring:
     path-match:
       matching-strategy: ant_path_matcher
 
-# ????????
 logging:
-  # ??????
   config: classpath:log/logback-spring.xml
 
 # springdoc-openapi
@@ -40,3 +37,32 @@ knife4j:
     enable: true
     username: admin
     password: 123456
+
+# 数据持久层框架配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  # 实体类包路径，可⾃⾏修改
+  type-aliases-package: top.xym.*.entity
+  configuration:
+    # 字段名允许驼峰
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    # ⽇志输出
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 逻辑删除配置
+      logic-delete-field: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# 第三⽅短信服务配置，后续介绍
+share:
+  sms:
+    ccp:
+      serverIp: app.cloopen.com
+      port: 8883
+      accountSId:
+      accountToken:
+      appId:
+      templateId: 1
