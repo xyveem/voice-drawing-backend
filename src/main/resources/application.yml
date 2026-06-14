@@ -1,7 +1,6 @@
 server:
   port: 8080
   servlet:
-    # ???????
     context-path: /draw-api
 
 spring:
@@ -13,9 +12,19 @@ spring:
     path-match:
       matching-strategy: ant_path_matcher
 
-# ????????
+  ai:
+    dashscope:
+      api-key:
+      chat:
+        options:
+          model: qwen-plus
+          temperature: 0.2
+          seed: 123456
+          top_p: 0.6
+          max-tokens: 2000
+          stream: false
+
 logging:
-  # ??????
   config: classpath:log/logback-spring.xml
 
 # springdoc-openapi
@@ -40,3 +49,53 @@ knife4j:
     enable: true
     username: admin
     password: 123456
+
+# 数据持久层框架配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  # 实体类包路径，可⾃⾏修改
+  type-aliases-package: top.xym.*.entity
+  configuration:
+    # 字段名允许驼峰
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    # ⽇志输出
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 逻辑删除配置
+      logic-delete-field: deleteFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# 第三⽅短信服务配置，后续介绍
+share:
+  sms:
+    ccp:
+      serverIp: app.cloopen.com
+      port: 8883
+      accountSId:
+      accountToken:
+      appId:
+      templateId: 1
+
+auth:
+  valid_urls:
+    - /auth/logout
+    - /user/**
+    - /pictures/**
+    - /chat/**
+
+aliyun:
+  oss:
+    endpoint:
+    accessKeyId:
+    accessKeySecret:
+    bucketName: mxy-u
+    temp-dir: temp/qa-image
+    url-expire: 1800
+    max-file-size: 5MB
+    allowed-types: jpg,jpeg,png,gif
+  nls:
+    app-key: 3OpIBd1uEnBKO139
+
