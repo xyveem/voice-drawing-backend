@@ -24,10 +24,11 @@ public class PictureController {
     @Operation(summary = "保存手绘作品")
     public Result<?> savePicture(@RequestParam("file") MultipartFile file,
                                  @RequestParam("title") String title,
-                                 @RequestParam(value = "voiceCommand", required = false) String voiceCommand) {
+                                 @RequestParam(value = "voiceCommand", required = false) String voiceCommand,
+                                 @RequestParam(value = "operationList", required = false) String operationList) {  // 新增
         Integer userId = RequestContext.getUserId();
         System.out.println("userId" + userId);
-        pictureService.savePic(userId, title, file, voiceCommand);
+        pictureService.savePic(userId, title, file, voiceCommand, operationList);  // 传递 operationList
         return Result.ok();
     }
 

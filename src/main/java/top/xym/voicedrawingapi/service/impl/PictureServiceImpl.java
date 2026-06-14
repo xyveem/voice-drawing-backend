@@ -5,9 +5,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import top.xym.voicedrawingapi.common.cache.RequestContext;
 import top.xym.voicedrawingapi.common.exception.ErrorCode;
 import top.xym.voicedrawingapi.common.exception.ServerException;
+import top.xym.voicedrawingapi.common.result.Result;
 import top.xym.voicedrawingapi.mapper.PictureMapper;
 import top.xym.voicedrawingapi.model.entity.Picture;
 import top.xym.voicedrawingapi.model.vo.PictureDetailVO;
@@ -25,13 +28,14 @@ public class PictureServiceImpl extends ServiceImpl<PictureMapper, Picture> impl
     private final PictureMapper pictureMapper;
 
     @Override
-    public void savePic(Integer userId, String title, MultipartFile file, String voiceCommand) {
+    public void savePic(Integer userId, String title, MultipartFile file, String voiceCommand, String operationList) {
         try {
             Picture picture = new Picture();
             picture.setUserId(userId);
             picture.setTitle(title);
             picture.setContent(file.getBytes());
             picture.setVoiceCommand(voiceCommand);
+            picture.setOperationList(operationList);
             picture.setDeleteFlag(0);
             baseMapper.insert(picture);
         } catch (IOException e) {
