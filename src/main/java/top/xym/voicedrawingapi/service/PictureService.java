@@ -10,7 +10,7 @@ public interface PictureService {
     /**
      * 保存画作
      */
-    void savePic(Integer userId, String title, MultipartFile file, String voiceCommand);
+    void savePic(Integer userId, String title, MultipartFile file, String voiceCommand, String operationList);
 
     /**
      * 获取我的画作列表

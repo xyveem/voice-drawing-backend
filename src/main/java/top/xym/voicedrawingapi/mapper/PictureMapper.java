@@ -15,7 +15,7 @@ public interface PictureMapper extends BaseMapper<Picture> {
             "FROM drawing WHERE user_id = #{userId} AND delete_flag = 0 ORDER BY create_time DESC")
     List<PictureVO> selectMyPicList(@Param("userId") Integer userId);
 
-    @Select("SELECT id, user_id userId, title, TO_BASE64(content) contentBase64, voice_command voiceCommand, create_time createTime " +
+    @Select("SELECT id, user_id userId, title, TO_BASE64(content) contentBase64, operation_list operationList, voice_command voiceCommand, create_time createTime " +
             "FROM drawing WHERE id = #{id} AND delete_flag = 0")
     PictureDetailVO selectDetailById(@Param("id") Integer id);
 }

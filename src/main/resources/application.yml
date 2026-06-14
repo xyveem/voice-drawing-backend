@@ -12,6 +12,18 @@ spring:
     path-match:
       matching-strategy: ant_path_matcher
 
+  ai:
+    dashscope:
+      api-key:
+      chat:
+        options:
+          model: qwen-plus
+          temperature: 0.2
+          seed: 123456
+          top_p: 0.6
+          max-tokens: 2000
+          stream: false
+
 logging:
   config: classpath:log/logback-spring.xml
 
@@ -72,3 +84,18 @@ auth:
     - /auth/logout
     - /user/**
     - /pictures/**
+    - /chat/**
+
+aliyun:
+  oss:
+    endpoint:
+    accessKeyId:
+    accessKeySecret:
+    bucketName: mxy-u
+    temp-dir: temp/qa-image
+    url-expire: 1800
+    max-file-size: 5MB
+    allowed-types: jpg,jpeg,png,gif
+  nls:
+    app-key: 3OpIBd1uEnBKO139
+

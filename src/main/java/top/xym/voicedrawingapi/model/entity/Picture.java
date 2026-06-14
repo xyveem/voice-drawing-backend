@@ -17,6 +17,8 @@ public class Picture {
 
     private byte[] content;
 
+    private String operationList;
+
     private String voiceCommand;
 
     @TableField(fill = FieldFill.INSERT)

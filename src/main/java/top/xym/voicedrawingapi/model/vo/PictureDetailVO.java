@@ -10,6 +10,7 @@ public class PictureDetailVO {
     private Integer userId;
     private String title;
     private String contentBase64;
+    private String operationList;
     private String voiceCommand;
     private LocalDateTime createTime;
 }
